@@ -38,6 +38,8 @@ background: linear-gradient(90deg, rgba(38,38,228,0.6923144257703081) 0%, rgba(0
   font-weight: 510;
   line-height: 18px;
   transition: transform 0.125s ease-in-out;
+  border: none;
+  
 }
 
 .app_content__button:hover {
@@ -59,4 +61,22 @@ background: linear-gradient(90deg, rgba(38,38,228,0.6923144257703081) 0%, rgba(0
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  margin: 6px 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.app_clip__btn {
+  height: 30px;
+  width: 57px;
+  border-radius: 10px;
+  border: none;
+  background-color: #cdcdfc;
+  color: #525050;
+  font-size: 14px;
+  font-weight: 510;
+  line-height: 18px;
+  cursor: pointer;
+}
+.app_clip__btn.active {
+  background-color: #cdfcd3;
 }

@@ -3,17 +3,27 @@ import {
   useTonAddress,
   useTonConnectUI
 } from '@tonconnect/ui-react';
-import {
-  ClipboardIconButton,
-  ClipboardRoot
-} from "@/components/ui/clipboard"
 
 import './App.css';
+import { useCallback, useState } from 'react';
 
 
 export function App() {
   const userFriendlyAddress = useTonAddress();
   const [tonConnectUI] = useTonConnectUI();
+  const [copied, setCopied] = useState(false);
+
+  const copyCallback = useCallback(
+    () => {
+      navigator.clipboard.writeText(userFriendlyAddress);
+      setCopied(true);
+    },
+    [userFriendlyAddress]
+  );
+  const disconnectCallback = useCallback(
+    () => tonConnectUI.disconnect(),
+    [tonConnectUI]
+  );
     return (
       <div className="app__container">
         <div className="app_content__container">
@@ -28,17 +38,19 @@ export function App() {
           {userFriendlyAddress && (
             <button
               className="app_content__button"
-              onClick={() => tonConnectUI.disconnect()}
+              onClick={disconnectCallback}
             >
               disconnect
             </button>
           )}
           {
             userFriendlyAddress && (
-              <ClipboardRoot value={userFriendlyAddress} className='app_clip__contaner'>
+              <div className="app_clip__contaner" onClick={copyCallback}>
                 <p className="app_clip__text">{userFriendlyAddress}</p>
-                <ClipboardIconButton />
-              </ClipboardRoot>
+                <button className={`app_clip__btn ${copied ? 'active' : ''}`}>
+                  {copied ? 'Copied' : 'Copy'}
+                </button>
+              </div>
               
             )
           }
